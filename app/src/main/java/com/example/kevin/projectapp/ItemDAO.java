@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
  * Created by programming on 2017/11/14.
  */
 
-public class itemDAO {
+public class ItemDAO {
     // tableName
     public static final String tableName = "account";
     //id
@@ -26,7 +26,7 @@ public class itemDAO {
 
     private SQLiteDatabase db;
 
-    public itemDAO(Context context ){
+    public ItemDAO(Context context ){
         db = DatabaseHelper.getDatabase(context);
     }
 
