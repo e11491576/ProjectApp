@@ -18,6 +18,10 @@ public class MainActivity extends AppCompatActivity {
         mydb = new DatabaseHelper(this);
 
 
+        mydb =new DatabaseHelper(this);
+        //construct a database
+
+
         button1 =(ImageButton)findViewById(R.id.imageButton1);
         ImageButton nextPageBtn1=(ImageButton)findViewById(R.id.imageButton1);
         nextPageBtn1.setOnClickListener(new View.OnClickListener(){
