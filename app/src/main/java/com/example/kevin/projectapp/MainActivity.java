@@ -8,11 +8,12 @@ import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
     private ImageButton button1,button2,button3,button4;
-
+    DatabaseHelper mydb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mydb = new DatabaseHelper(this);
 
         button1 =(ImageButton)findViewById(R.id.imageButton1);
         ImageButton nextPageBtn1=(ImageButton)findViewById(R.id.imageButton1);
