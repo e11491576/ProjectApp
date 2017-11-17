@@ -1,5 +1,6 @@
 package com.example.kevin.projectapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -57,4 +58,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public boolean insertData (String dataTime, String term, Integer amount, String comsumeLocation){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(dataTime_column,dataTime);
+        contentValues.put(term_column,term);
+        contentValues.put(amount_column,amount);
+        contentValues.put(comsumeLocation_column,comsumeLocation);
+        long result = db.insert(tableName,null,contentValues);
+        if(result==-1)
+            return false;
+        else
+            return true;
+    }
 }
