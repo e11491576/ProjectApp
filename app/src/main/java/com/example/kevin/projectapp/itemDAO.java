@@ -1,5 +1,8 @@
 package com.example.kevin.projectapp;
 
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+
 /**
  * Created by programming on 2017/11/14.
  */
@@ -18,7 +21,16 @@ public class itemDAO {
     //create table
     public static final String createTable =
             "CREATE TABLE" + tableName + "(" + keyID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    dataTime_column + "DEFAULT CURRENT_TIMESTAMP" + term_column + ""
+                    dataTime_column + "DEFAULT CURRENT_TIMESTAMP," + term_column + "TEXT," +
+                    amount_column + "INTEGER NOT NULL," + comsumeLocation_column + "TEXT)";
 
+    private SQLiteDatabase db;
 
+    public itemDAO(Context context ){
+        db = DatabaseHelper.getDatabase(context);
+    }
+
+    public void close() {
+        db.close();
+    }
 }
