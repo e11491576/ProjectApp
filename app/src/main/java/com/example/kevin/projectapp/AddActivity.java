@@ -27,8 +27,6 @@ public class AddActivity extends AppCompatActivity {
             new View.OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    mydb.insertData();
-
 
                 }
             }
