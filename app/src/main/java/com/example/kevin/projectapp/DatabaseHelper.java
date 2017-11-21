@@ -4,6 +4,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by programming on 2017/11/14.
  */
@@ -12,11 +15,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final int VERSION = 1;
     // tableName
+
     public static final String tableName = "account";
     //id
     public static final String keyID = "_id";
     //remain _column
-    public static final String dataTime_column = "time";
+    public static final String dataTime_column ="time";
     public static final String term_column = "term";
     public static final String amount_column="amount";
     public static final String comsumeLocation_column="comsumeLocation";
@@ -26,6 +30,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             super(context, DB_name, null, VERSION);
           //  SQLiteDatabase db = this.getWritableDatabase();
     }
+
+
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
+    Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
+    String str = formatter.format(curDate);
 
 
     @Override
@@ -39,6 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
     public boolean insertData (String dataTime, String term, String amount, String comsumeLocation){
+        dataTime=str;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(dataTime_column,dataTime);

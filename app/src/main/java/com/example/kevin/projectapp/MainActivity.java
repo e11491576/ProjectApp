@@ -17,9 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //construct a database
-
-
         button1 =(ImageButton)findViewById(R.id.imageButton1);
         ImageButton nextPageBtn1=(ImageButton)findViewById(R.id.imageButton1);
         nextPageBtn1.setOnClickListener(new View.OnClickListener(){
