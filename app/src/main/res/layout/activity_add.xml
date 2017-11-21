@@ -7,27 +7,15 @@
     tools:context="com.example.kevin.projectapp.AddActivity">
 
     <EditText
-        android:id="@+id/editText"
-        android:layout_width="86dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="支出日期:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
         android:id="@+id/editText2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="支出項目:"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        tools:layout_editor_absoluteX="8dp" />
 
     <EditText
         android:id="@+id/editText4"
@@ -66,9 +54,19 @@
         android:id="@+id/textView"
         android:layout_width="252dp"
         android:layout_height="43dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="105dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="支出日期:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

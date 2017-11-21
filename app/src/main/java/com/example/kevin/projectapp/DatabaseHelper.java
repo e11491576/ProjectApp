@@ -48,7 +48,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
     public boolean insertData (String dataTime, String term, String amount, String comsumeLocation){
-        dataTime=str;
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(dataTime_column,dataTime);

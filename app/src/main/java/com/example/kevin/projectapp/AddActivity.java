@@ -27,10 +27,11 @@ public class AddActivity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
 
 
-        editTime = (EditText) findViewById(R.id.editText);
+//        editTime = (EditText) findViewById(R.id.editText);
+
         editTerm = (EditText) findViewById(R.id.editText2);
         editAmount = (EditText) findViewById(R.id.editText3);
-        editLocation = (EditText) findViewById(R.id.editText4);
+//        editLocation = (EditText) findViewById(R.id.editText4);
         btnSubmit = (Button) findViewById(R.id.button2);
         currentTime=(TextView)findViewById(R.id.textView);
         currentTime.setText(str);//set_curret_time
@@ -42,7 +43,7 @@ public class AddActivity extends AppCompatActivity {
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                boolean isInserted =  myDb.insertData(editTime.getText().toString(),
+                boolean isInserted =  myDb.insertData(currentTime.getText().toString(),
                             editTerm.getText().toString(),
                             editAmount.getText().toString(),
                             editLocation.getText().toString());
