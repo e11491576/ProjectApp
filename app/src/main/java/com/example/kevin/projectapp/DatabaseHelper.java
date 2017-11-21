@@ -1,5 +1,5 @@
 package com.example.kevin.projectapp;
-
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -29,27 +29,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_name = "myaccount.db";
 
     private static SQLiteDatabase database;
-
-    public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+        public DatabaseHelper(Context context) {
+            super(context, DB_name, null, VERSION);
+            SQLiteDatabase db = this.getWritableDatabase();
     }
 
-    //呼叫DB
+/*    //呼叫DB
     public static SQLiteDatabase getDatabase(Context context) {
         if (database == null || !database.isOpen()) {
-            database = new DatabaseHelper(context, DB_name,null, VERSION).getWritableDatabase();
-        }
+        database = new DatabaseHelper(context, DB_name,null, VERSION).getWritableDatabase();
+    }
 
         return database;
-    }
+}*/
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS " + tableName);
+        onCreate(db);
+    }
+    public boolean insertData (String dataTime, String term, String amount, String comsumeLocation){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(dataTime_column,dataTime);
+        contentValues.put(term_column,term);
+        contentValues.put(amount_column,amount);
+        contentValues.put(comsumeLocation_column,comsumeLocation);
+        long result = db.insert(tableName,null,contentValues);
+        if(result==-1)
+            return false;
+        else
+            return true;
     }
 }
