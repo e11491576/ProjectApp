@@ -20,11 +20,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String term_column = "term";
     public static final String amount_column="amount";
     public static final String comsumeLocation_column="comsumeLocation";
-    //create table
-    public static final String createTable =
-            "CREATE TABLE" + tableName + "(" + keyID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    dataTime_column + "DEFAULT CURRENT_TIMESTAMP," + term_column + "TEXT," +
-                    amount_column + "INTEGER NOT NULL," + comsumeLocation_column + "TEXT)";
 
     public static final String DB_name = "myaccount.db";
         public DatabaseHelper(Context context) {
@@ -35,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(createTable);
+        db.execSQL("create table " + tableName +" (_id INTEGER PRIMARY KEY AUTOINCREMENT,time TEXT,term TEXT,amount INTEGER, comsumeLocation TEXT)");
     }
 
     @Override
