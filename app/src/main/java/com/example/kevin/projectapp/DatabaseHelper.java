@@ -27,21 +27,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     amount_column + "INTEGER NOT NULL," + comsumeLocation_column + "TEXT)";
 
     public static final String DB_name = "myaccount.db";
-
-    private static SQLiteDatabase database;
         public DatabaseHelper(Context context) {
             super(context, DB_name, null, VERSION);
-            SQLiteDatabase db = this.getWritableDatabase();
+          //  SQLiteDatabase db = this.getWritableDatabase();
     }
 
-/*    //呼叫DB
-    public static SQLiteDatabase getDatabase(Context context) {
-        if (database == null || !database.isOpen()) {
-        database = new DatabaseHelper(context, DB_name,null, VERSION).getWritableDatabase();
-    }
-
-        return database;
-}*/
 
     @Override
     public void onCreate(SQLiteDatabase db) {

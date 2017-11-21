@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class AddActivity extends AppCompatActivity {
     DatabaseHelper myDb;
@@ -22,8 +23,7 @@ public class AddActivity extends AppCompatActivity {
         editAmount = (EditText) findViewById(R.id.editText3);
         editLocation = (EditText) findViewById(R.id.editText4);
         btnSubmit = (Button) findViewById(R.id.button2);
-
-        setContentView(R.layout.activity_add);
+        AddData();
     }
 
     public void AddData() {
@@ -31,10 +31,14 @@ public class AddActivity extends AppCompatActivity {
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                boolean isInserted =  myDb.insertData(editTime.getText(),toString(),
+                boolean isInserted =  myDb.insertData(editTime.getText().toString(),
                             editTerm.getText().toString(),
                             editAmount.getText().toString(),
                             editLocation.getText().toString());
+                        if(isInserted=true)
+                            Toast.makeText(AddActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(AddActivity.this,"Data not Inserted",Toast.LENGTH_LONG).show();
                     }
                 }
         );
