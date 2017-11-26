@@ -1,6 +1,7 @@
 package com.example.kevin.projectapp;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -39,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + tableName +" (_id INTEGER PRIMARY KEY AUTOINCREMENT,time TEXT,term TEXT,amount INTEGER, comsumeLocation TEXT)");
+        db.execSQL("create table " + tableName +" (_id INTEGER PRIMARY KEY AUTOINCREMENT,time TEXT,term TEXT,amount INTEGER NOT NULL, comsumeLocation TEXT)");
     }
 
     @Override
@@ -59,5 +60,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         else
             return true;
+    }
+
+    public Cursor getAllData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sortOrder = null;
+        Cursor res = db.query(tableName,null,null,null,null,null,null);
+        return res;
     }
 }
