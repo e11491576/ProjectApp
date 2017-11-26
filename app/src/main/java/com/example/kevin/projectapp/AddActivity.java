@@ -1,6 +1,8 @@
 package com.example.kevin.projectapp;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -31,9 +33,10 @@ public class AddActivity extends AppCompatActivity {
 
         editTerm = (EditText) findViewById(R.id.editText2);
         editAmount = (EditText) findViewById(R.id.editText3);
-//        editLocation = (EditText) findViewById(R.id.editText4);
+        editLocation = (EditText) findViewById(R.id.editText4);
         btnSubmit = (Button) findViewById(R.id.button2);
         currentTime=(TextView)findViewById(R.id.textView);
+
         currentTime.setText(str);//set_curret_time
         AddData();
     }
@@ -59,4 +62,41 @@ public class AddActivity extends AppCompatActivity {
                 }
         );
     }
+ /*   public void viewAll() {
+        btnviewAll.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Cursor res = myDb.getAllData();
+                        if(res.getCount() == 0) {
+                            // show message
+                            showMessage("Error","Nothing found");
+                            return;
+                        }
+
+                        StringBuffer buffer = new StringBuffer();
+                        while (res.moveToNext()) {
+                            buffer.append("Id :"+ res.getString(0)+"\n");
+                            buffer.append("Name :"+ res.getString(1)+"\n");
+                            buffer.append("Surname :"+ res.getString(2)+"\n");
+                            buffer.append("Marks :"+ res.getString(3)+"\n\n");
+                        }
+
+                        // Show all data
+                        showMessage("Data",buffer.toString());
+                    }
+                }
+        );
+    }
+
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
+*/
+
+
 }

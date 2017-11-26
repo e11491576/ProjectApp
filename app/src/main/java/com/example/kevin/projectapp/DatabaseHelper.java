@@ -1,6 +1,7 @@
 package com.example.kevin.projectapp;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -59,5 +60,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return false;
         else
             return true;
+    }
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+tableName,null);
+        return res;
     }
 }
