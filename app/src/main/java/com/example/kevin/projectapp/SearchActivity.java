@@ -1,10 +1,13 @@
 package com.example.kevin.projectapp;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.SimpleCursorAdapter;
 
 public class SearchActivity extends AppCompatActivity {
     DatabaseHelper myDb = new DatabaseHelper(this);
@@ -13,31 +16,15 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        viewText();
-    }
-
-    public void viewText(){
+        ListView list = (ListView) findViewById(R.id.list);
         Cursor res = myDb.getAllData();
-        if(res.getCount()==0){
-            Toast.makeText(SearchActivity.this,"無資料",Toast.LENGTH_LONG).show();
-            return;
-        }
-        StringBuffer buffer = new StringBuffer();
-        while (res.moveToNext()){
-            buffer.append(res.getString(0)+"\n");
-            buffer.append(res.getString(1)+"\n");
-            buffer.append(res.getString(2)+"\n");
-            buffer.append(res.getString(3)+"\n");
-            buffer.append(res.getString(4)+"\n");
-        }
-        showMessage("Data",buffer.toString());
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter
+                (this,R.layout.finance_row,
+                        res,
+                        new String[] {"_id","time","term","amount","comsumeLocation"},
+                        new int[] {R.id.item_id, R.id.item_time,R.id.item_term,R.id.item_account,R.id.item_location},
+                        0);
+        list.setAdapter(adapter);
     }
 
-    public void showMessage(String title,String Message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
-    }
 }
