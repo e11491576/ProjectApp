@@ -40,7 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + tableName +" (_id INTEGER PRIMARY KEY AUTOINCREMENT,time TEXT,term TEXT,amount INTEGER NOT NULL, comsumeLocation TEXT)");
+        db.execSQL("create table " + tableName +" (_id INTEGER PRIMARY KEY AUTOINCREMENT,time TEXT,term TEXT,amount INTEGER, comsumeLocation TEXT)");
     }
 
     @Override
@@ -61,11 +61,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
-
-    public Cursor getAllData(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String sortOrder = null;
-        Cursor res = db.query(tableName,null,null,null,null,null,null);
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+tableName,null);
         return res;
     }
 }
