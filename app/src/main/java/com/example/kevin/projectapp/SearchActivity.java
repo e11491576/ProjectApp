@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 public class SearchActivity extends AppCompatActivity {
-    DatabaseHelper myDb;
+    DatabaseHelper myDb = new DatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

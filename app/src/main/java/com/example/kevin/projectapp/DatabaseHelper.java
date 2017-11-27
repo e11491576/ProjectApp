@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
+
 /**
  * Created by programming on 2017/11/14.
  */
@@ -61,9 +63,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
-    public Cursor getAllData() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+tableName,null);
+    public Cursor getAllData(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sortOrder = null;
+        Cursor res = db.query(tableName,null,null,null,null,null,null);
         return res;
     }
 }
