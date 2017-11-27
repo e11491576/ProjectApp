@@ -24,11 +24,11 @@ public class SearchActivity extends AppCompatActivity {
         }
         StringBuffer buffer = new StringBuffer();
         while (res.moveToNext()){
-            buffer.append("id : "+res.getString(0)+"\n");
-            buffer.append("date : "+res.getString(1)+"\n");
-            buffer.append("term : "+res.getString(2)+"\n");
-            buffer.append("amount : "+res.getString(3)+"\n");
-            buffer.append("location : "+res.getString(4)+"\n");
+            buffer.append(res.getString(0)+"\n");
+            buffer.append(res.getString(1)+"\n");
+            buffer.append(res.getString(2)+"\n");
+            buffer.append(res.getString(3)+"\n");
+            buffer.append(res.getString(4)+"\n");
         }
         showMessage("Data",buffer.toString());
     }
