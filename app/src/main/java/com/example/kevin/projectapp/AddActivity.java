@@ -97,6 +97,4 @@ public class AddActivity extends AppCompatActivity {
         builder.show();
     }
 */
-
-
 }
