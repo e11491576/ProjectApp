@@ -17,16 +17,6 @@
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <EditText
-        android:id="@+id/editText4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/editText3"
-        app:layout_constraintTop_toTopOf="@+id/editText3" />
-
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -102,5 +92,12 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="214dp"
+        android:layout_height="45dp"
+        app:layout_constraintStart_toStartOf="@+id/editText3"
+        app:layout_constraintTop_toBottomOf="@+id/editText3" />
 
 </android.support.constraint.ConstraintLayout>
