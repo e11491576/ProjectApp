@@ -19,9 +19,9 @@ import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
     DatabaseHelper myDb;
-    EditText editTerm, editAmount, editLocation;
+    EditText editTerm, editAmount, editLocation,editTextID;
     Spinner itemSpinner;
-    Button btnSubmit;
+    Button btnSubmit,btnUpdate;
     TextView currentTime;
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
     Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
@@ -36,16 +36,19 @@ public class AddActivity extends AppCompatActivity {
       //  editTerm = (EditText) findViewById(R.id.editText2);
         editAmount = (EditText) findViewById(R.id.editText3);
         editLocation = (EditText) findViewById(R.id.editText4);
+        editTextID=(EditText)findViewById(R.id.edittext);
         btnSubmit = (Button) findViewById(R.id.button2);
+        btnUpdate=(Button)findViewById(R.id.btnupdate);
         currentTime=(TextView)findViewById(R.id.textView);
 
         itemSpinner=(Spinner)findViewById(R.id.spinner_item);
         ArrayAdapter<CharSequence> nAdapter = ArrayAdapter.createFromResource(
-                this, R.array.item_array, android.R.layout.simple_spinner_item );
+                this, R.array.item_array, android.R.layout.simple_spinner_item);
         itemSpinner.setAdapter(nAdapter);
 
         currentTime.setText(str);//set_curret_time
         AddData();
+        UpdateData();
     }
 
     public void AddData() {
@@ -65,6 +68,30 @@ public class AddActivity extends AppCompatActivity {
                         }
                         else
                             Toast.makeText(AddActivity.this,"帳目輸入失敗",Toast.LENGTH_LONG).show();
+                    }
+                }
+        );
+    }
+    public void UpdateData() {
+        btnUpdate.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isUpdate = myDb.updateData(editTextID.getText().toString(),
+                                currentTime.getText().toString(),
+                                itemSpinner.getSelectedItem().toString(),
+                                editAmount.getText().toString(),
+                                editLocation.getText().toString()
+);
+                        if(isUpdate == true) {
+                            Toast.makeText(AddActivity.this, "資料修改成功", Toast.LENGTH_LONG).show();
+                            Intent intent =new Intent();
+                            intent.setClass(AddActivity.this,MainActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(AddActivity.this, "資料修改失敗 請重新輸入", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
         );

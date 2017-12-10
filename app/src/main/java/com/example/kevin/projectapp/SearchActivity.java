@@ -15,7 +15,7 @@ import android.widget.Toast;
 import android.widget.SimpleCursorAdapter;
 
 public class SearchActivity extends AppCompatActivity {
-    Button btnDelete;
+    Button btnDelete,btnUpdate;
     EditText editTextId;
     DatabaseHelper myDb = new DatabaseHelper(this);
 
@@ -26,9 +26,18 @@ public class SearchActivity extends AppCompatActivity {
         ListView list = (ListView) findViewById(R.id.list);
         Cursor res = myDb.getAllData();
         btnDelete=(Button)findViewById(R.id.btndelete);
+        btnUpdate=(Button)findViewById(R.id.btnupdate);
         editTextId=(EditText)findViewById(R.id.delete_id);
 
-
+        btnUpdate.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent();
+                        intent.setClass(SearchActivity.this, AddActivity.class);
+                        startActivity(intent);
+                    }
+                });
         SimpleCursorAdapter adapter = new SimpleCursorAdapter
                 (this,R.layout.finance_row,
                         res,
