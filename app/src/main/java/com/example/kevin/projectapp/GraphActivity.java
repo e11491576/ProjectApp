@@ -25,7 +25,7 @@ public class GraphActivity extends AppCompatActivity {
     private static String TAG = "GraphActivity";
 
     private float[] yData = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f};
-    private String[] xData = {"Mitch", "Jessica" , "Mohammad" , "Kelsey", "Sam", "Robert", "Ashley"};
+    private String[] xData = {"食", "衣" , "住" , "行", "育", "樂", "其它"};
     PieChart pieChart;
 
     @Override
@@ -43,7 +43,7 @@ public class GraphActivity extends AppCompatActivity {
         //pieChart.setCenterTextColor(Color.BLACK);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("Test Chart");
+        pieChart.setCenterText("花錢項目分析");
         pieChart.setCenterTextSize(15);
         //pieChart.setDrawEntryLabels(true);
         //pieChart.setEntryLabelTextSize(20);
@@ -66,5 +66,9 @@ public class GraphActivity extends AppCompatActivity {
         chart.setData(data);
         chart.invalidate();
     }
-
+    public Integer countItem(Integer amout){
+        DatabaseHelper myDb =new DatabaseHelper(this);
+        String sql="SELECT COUNT(amount_column) FROM myDb";
+        return 0;
+    }
 }
