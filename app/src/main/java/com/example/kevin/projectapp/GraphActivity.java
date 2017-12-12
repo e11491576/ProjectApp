@@ -50,6 +50,7 @@ public class GraphActivity extends AppCompatActivity {
         //More options just check out the documentation!
 
         addDataSet();
+        showcountItem();
     }
 
     private void addDataSet() {
@@ -66,9 +67,21 @@ public class GraphActivity extends AppCompatActivity {
         chart.setData(data);
         chart.invalidate();
     }
-    public Integer countItem(Integer amout){
+    public void showcountItem(){
         DatabaseHelper myDb =new DatabaseHelper(this);
-        String sql="SELECT COUNT(amount_column) FROM myDb";
-        return 0;
+        Cursor cursor =myDb.getAllData();
+        int rows_num = cursor.getCount();
+        if(rows_num!=0){
+            cursor.moveToFirst();
+            for(int i=0;i<rows_num;i++){
+                int value=cursor.getInt(3);
+                if(value!=0)
+                Toast.makeText(GraphActivity.this, ""+value, Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(GraphActivity.this, "XX", Toast.LENGTH_LONG).show();
+                cursor.moveToNext();
+            }
+
+        }
     }
 }
