@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String tableName = "account";
     //id
     public static final String keyID = "_id";
-    //remain _column
+    //remain _column _id=0 time=1 term=2 amount=3 comsumeLocation=4
     public static final String dataTime_column ="time";
     public static final String term_column = "term";
     public static final String amount_column="amount";
