@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -65,7 +67,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     public Cursor getAllData(){
         SQLiteDatabase db = this.getReadableDatabase();
-        String sortOrder = null;
         Cursor res = db.query(tableName,null,null,null,null,null,null);
         return res;
     }
@@ -84,4 +85,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.update(tableName,contentValues,"_id = ?",new String[] {id});
         return true;
     }
+
 }

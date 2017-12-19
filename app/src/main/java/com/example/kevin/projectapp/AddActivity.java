@@ -1,7 +1,14 @@
 package com.example.kevin.projectapp;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,11 +25,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
+    static final int REQUEST_LOCATION = 1;
+    LocationManager locationManager;
     DatabaseHelper myDb;
-    EditText editTerm, editAmount, editLocation,editTextID;
+    EditText editAmount,editTextID;
     Spinner itemSpinner;
     Button btnSubmit,btnUpdate;
-    TextView currentTime;
+    TextView currentTime,editLocation;
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
     Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
     String str = formatter.format(curDate);
@@ -35,7 +44,7 @@ public class AddActivity extends AppCompatActivity {
 
       //  editTerm = (EditText) findViewById(R.id.editText2);
         editAmount = (EditText) findViewById(R.id.editText3);
-        editLocation = (EditText) findViewById(R.id.editText4);
+        editLocation = (TextView) findViewById(R.id.textLocation);
         editTextID=(EditText)findViewById(R.id.edittext);
         btnSubmit = (Button) findViewById(R.id.button2);
         btnUpdate=(Button)findViewById(R.id.btnupdate);
@@ -47,6 +56,8 @@ public class AddActivity extends AppCompatActivity {
         itemSpinner.setAdapter(nAdapter);
 
         currentTime.setText(str);//set_curret_time
+        locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        getLocation();
         AddData();
         UpdateData();
     }
@@ -96,4 +107,38 @@ public class AddActivity extends AppCompatActivity {
                 }
         );
     }
+
+    public void getLocation() {
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        } else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            if (location != null){
+                double latti = location.getLatitude();
+                double longi = location.getLongitude();
+                String consumeLocation = String.valueOf(latti) + "," + String.valueOf(longi);
+                editLocation.setText(consumeLocation);
+            } else {
+                editLocation.setText("Unable to find correct location.");
+            }
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_LOCATION:
+                getLocation();
+                break;
+        }
+    }
+
 }
