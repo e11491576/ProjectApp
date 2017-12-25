@@ -90,7 +90,7 @@ public class AddActivity extends AppCompatActivity{
                             + location.getLatitude());
                 }
                 locationManager.removeUpdates(this);
-                locationManager.setTestProviderEnabled(provider, false);
+               // locationManager.setTestProviderEnabled(provider, false);
             }
             @Override
             public void onProviderDisabled(String provider)
@@ -174,10 +174,9 @@ public class AddActivity extends AppCompatActivity{
 
         } else {
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            listener.onLocationChanged(location);
+            locationManager.requestLocationUpdates("gps",60000,1,listener);
 
-            if(location==null){
-                locationManager.requestLocationUpdates("gps",60000,1,listener);
-            }
             if (location != null){
 
                 double latti = location.getLatitude();
@@ -207,7 +206,7 @@ public class AddActivity extends AppCompatActivity{
     protected void onDestroy()
     {
         locationManager.removeUpdates(listener);
-//        locationManager.setTestProviderEnabled(provider, false);
+       // locationManager.setTestProviderEnabled(provider, false);
         super.onDestroy();
     }
 
