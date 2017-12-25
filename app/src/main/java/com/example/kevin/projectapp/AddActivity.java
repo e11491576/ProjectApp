@@ -173,9 +173,14 @@ public class AddActivity extends AppCompatActivity{
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         } else {
+
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            locationManager.requestLocationUpdates("gps", 60, 1, listener);
+            if(location==null) {
+                locationManager.requestLocationUpdates("gps", 60, 1, listener);
+            }
+
             listener.onLocationChanged(location);
-            locationManager.requestLocationUpdates("gps",60000,1,listener);
 
             if (location != null){
 
