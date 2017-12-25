@@ -69,6 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(new MarkerOptions().position(sydney1).title("我在這花了"+money));
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney1));
                 cursor.moveToNext();
+
             }
 
         }
