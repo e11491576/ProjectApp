@@ -192,7 +192,7 @@ public class AddActivity extends AppCompatActivity{
                 String consumeLocation = String.valueOf(latti) + "," + String.valueOf(longi);
                 editLocation.setText(consumeLocation);
             } else {
-                editLocation.setText("Unable to find correct location.");
+                editLocation.setText("GPS尚未開啟");
             }
         }
     }

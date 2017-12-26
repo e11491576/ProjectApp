@@ -10,11 +10,13 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -28,8 +30,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        takeDataBase();
     }
 
 
@@ -60,20 +60,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             cursor.moveToFirst();
             for (int i = 0; i < rows_num; i++) {
                 //_id=0 time=1 term=2 amount=3 comsumeLocation=4
+                String term=cursor.getString(2);
                 String item = cursor.getString(4);
                 String money=cursor.getString(3);
                 String[] loc=item.split(",");
                 //loc[0]=Latitude loc[1]=Longtitude
                 //Toast.makeText(MapsActivity.this, ""+loc[0]+loc[1], Toast.LENGTH_LONG).show();
-                LatLng sydney1 = new LatLng(Double.parseDouble(loc[0]), Double.parseDouble(loc[1]));
-                mMap.addMarker(new MarkerOptions().position(sydney1).title("我在這花了"+money));
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney1));
+                try {
+                    LatLng sydney1 = new LatLng(Double.parseDouble(loc[0]), Double.parseDouble(loc[1]));
+                    MarkerOptions option = new MarkerOptions().position(sydney1).title("我在這花了" + money)
+                            .snippet("項目:" + term);
+                    Marker mark = mMap.addMarker(option);
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(sydney1, 12);
+                    mark.showInfoWindow();
+                    mMap.animateCamera(cameraUpdate);
+                }catch(Exception e){
+
+                }
+                //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney1);
+
                 cursor.moveToNext();
-
             }
-
         }
     }
-    public void takeDataBase() {
+    public void checkDuplicateMark(LatLng nowLocation){
+
+
     }
 }
