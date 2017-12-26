@@ -15,6 +15,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -69,7 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 try {
                     LatLng sydney1 = new LatLng(Double.parseDouble(loc[0]), Double.parseDouble(loc[1]));
                     MarkerOptions option = new MarkerOptions().position(sydney1).title("我在這花了" + money)
-                            .snippet("項目:" + term);
+                            .snippet("項目:" + term).icon(BitmapDescriptorFactory.fromResource(R.drawable.food_x50));
                     Marker mark = mMap.addMarker(option);
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(sydney1, 12);
                     mark.showInfoWindow();

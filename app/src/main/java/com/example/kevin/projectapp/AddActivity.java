@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -112,7 +113,6 @@ public class AddActivity extends AppCompatActivity{
                 Log.i("onStatusChanged", "come in");
             }
         };
-
         getLocation();
     }
 
@@ -175,10 +175,10 @@ public class AddActivity extends AppCompatActivity{
         } else {
 
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            locationManager.requestLocationUpdates("gps", 60, 1, listener);
-            if(location==null) {
+            locationManager.requestLocationUpdates("gps", 1000, 1, listener);
+            /*if(location==null) {
                 locationManager.requestLocationUpdates("gps", 60, 1, listener);
-            }
+            }*/
 
             listener.onLocationChanged(location);
 
