@@ -134,6 +134,7 @@ public class AddActivity extends AppCompatActivity{
                         }
                         else
                             Toast.makeText(AddActivity.this,"帳目輸入失敗",Toast.LENGTH_LONG).show();
+
                     }
                 }
         );
