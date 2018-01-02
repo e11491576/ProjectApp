@@ -76,7 +76,7 @@ public class AddActivity extends AppCompatActivity{
         criteria.setPowerRequirement(Criteria.POWER_LOW);
         String serviceName = Context.LOCATION_SERVICE;
         locationManager = (LocationManager) getSystemService(serviceName);
-       // locationManager.setTestProviderEnabled("gps", true);
+//        locationManager.setTestProviderEnabled("gps", true);
         provider = locationManager.getBestProvider(criteria, true);
         Log.d("provider", provider);
         listener = new LocationListener() {
@@ -220,7 +220,7 @@ public class AddActivity extends AppCompatActivity{
     protected void onDestroy()
     {
         locationManager.removeUpdates(listener);
-       // locationManager.setTestProviderEnabled(provider, false);
+        //locationManager.setTestProviderEnabled(provider, false);
         super.onDestroy();
     }
 }
