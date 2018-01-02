@@ -69,9 +69,32 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //Toast.makeText(MapsActivity.this, ""+loc[0]+loc[1], Toast.LENGTH_LONG).show();
                 try {
                     LatLng sydney1 = new LatLng(Double.parseDouble(loc[0]), Double.parseDouble(loc[1]));
-
+                    //String icon;
                     MarkerOptions option = new MarkerOptions().position(sydney1).title("我在這花了" + money)
-                            .snippet("項目:" + term).icon(BitmapDescriptorFactory.fromResource(R.drawable.food_x50));
+                            .snippet("項目:" + term);
+                    switch (term) {
+                        case "食":
+                            option.icon(BitmapDescriptorFactory.fromResource(R.drawable.food_x50));
+                            break;
+                        case "衣":
+                            option.icon(BitmapDescriptorFactory.fromResource(R.drawable.shirt_x50));
+                            break;
+                        case "住":
+                            option.icon(BitmapDescriptorFactory.fromResource(R.drawable.house_x50));
+                            break;
+                        case "行":
+                            option.icon(BitmapDescriptorFactory.fromResource(R.drawable.car_x50));
+                            break;
+                        case "育":
+                            option.icon(BitmapDescriptorFactory.fromResource(R.drawable.edu_x50));
+                            break;
+                        case "樂":
+                            option.icon(BitmapDescriptorFactory.fromResource(R.drawable.play_x50));
+                            break;
+                        case "其它":
+                            break;
+                    }
+
                     Marker mark = mMap.addMarker(option);
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(sydney1, 12);
                     mark.showInfoWindow();
