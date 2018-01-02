@@ -13,6 +13,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -45,8 +46,9 @@ public class GraphActivity extends AppCompatActivity {
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("花錢項目分析");
         pieChart.setCenterTextSize(15);
+        pieChart.setEntryLabelTextSize(40f);
+
         //pieChart.setDrawEntryLabels(true);
-        //pieChart.setEntryLabelTextSize(20);
         //More options just check out the documentation!
 
         countItem();
@@ -68,11 +70,14 @@ public class GraphActivity extends AppCompatActivity {
         colors.add(Color.rgb(245,91,45));
         colors.add(Color.rgb(183,176,253));
 
-        PieDataSet dataSet = new PieDataSet(pieEntries,"test");
+        PieDataSet dataSet = new PieDataSet(pieEntries,"花錢項目分析");
         dataSet.setColors(colors);
         PieData data = new PieData(dataSet);
 
         PieChart chart = (PieChart)findViewById(R.id.PieChart);
+        data.setValueTextSize(30f);
+        data.setValueTextColor(Color.WHITE);
+
         chart.setData(data);
         chart.invalidate();
     }
