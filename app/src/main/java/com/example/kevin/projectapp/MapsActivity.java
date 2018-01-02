@@ -69,6 +69,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 //Toast.makeText(MapsActivity.this, ""+loc[0]+loc[1], Toast.LENGTH_LONG).show();
                 try {
                     LatLng sydney1 = new LatLng(Double.parseDouble(loc[0]), Double.parseDouble(loc[1]));
+
                     MarkerOptions option = new MarkerOptions().position(sydney1).title("我在這花了" + money)
                             .snippet("項目:" + term).icon(BitmapDescriptorFactory.fromResource(R.drawable.food_x50));
                     Marker mark = mMap.addMarker(option);

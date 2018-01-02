@@ -7,21 +7,11 @@
     android:background="@drawable/search_bg"
     tools:context="com.example.kevin.projectapp.SearchActivity">
 
-    <Button
-        android:id="@+id/btnupdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="216dp"
-        android:layout_marginTop="72dp"
-        android:text="修改"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="31dp"
         android:layout_height="21dp"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="188dp"
         android:layout_marginTop="24dp"
         android:text="ID:"
         android:textSize="18sp"
@@ -32,7 +22,7 @@
         android:id="@+id/delete_id"
         android:layout_width="86dp"
         android:layout_height="44dp"
-        android:layout_marginStart="132dp"
+        android:layout_marginStart="216dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -43,7 +33,7 @@
         android:id="@+id/btndelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="216dp"
+        android:layout_marginStart="300dp"
         android:layout_marginTop="16dp"
         android:text="刪除"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +41,7 @@
 
     <ListView
         android:id="@+id/list"
-        android:layout_width="wrap_content"
+        android:layout_width="555dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

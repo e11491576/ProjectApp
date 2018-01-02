@@ -22,6 +22,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,7 +39,7 @@ public class AddActivity extends AppCompatActivity{
     EditText editAmount,editTextID;
     Spinner itemSpinner;
     Button btnSubmit,btnUpdate;
-    TextView currentTime,editLocation;
+    TextView currentTime,editLocation,showGPS;
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
     Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
     String str = formatter.format(curDate);
@@ -48,15 +50,14 @@ public class AddActivity extends AppCompatActivity{
         setContentView(R.layout.activity_add);
         myDb = new DatabaseHelper(this);
 
-      //  editTerm = (EditText) findViewById(R.id.editText2);
         editAmount = (EditText) findViewById(R.id.editText3);
-        editLocation = (TextView) findViewById(R.id.textLocation);
+        showGPS = (TextView) findViewById(R.id.textLocation);
         editTextID=(EditText)findViewById(R.id.edittext);
         btnSubmit = (Button) findViewById(R.id.button2);
         btnUpdate=(Button)findViewById(R.id.btnupdate);
         currentTime=(TextView)findViewById(R.id.textView);
-
         itemSpinner=(Spinner)findViewById(R.id.spinner_item);
+        editLocation=(TextView)findViewById(R.id.invisibleLocation);
         ArrayAdapter<CharSequence> nAdapter = ArrayAdapter.createFromResource(
                 this, R.array.item_array, android.R.layout.simple_spinner_item);
         itemSpinner.setAdapter(nAdapter);
@@ -165,7 +166,6 @@ public class AddActivity extends AppCompatActivity{
 
     public void getLocation() {
 
-
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -176,9 +176,9 @@ public class AddActivity extends AppCompatActivity{
 
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             locationManager.requestLocationUpdates("gps", 1000, 1, listener);
-            /*if(location==null) {
+            if(location==null) {
                 locationManager.requestLocationUpdates("gps", 60, 1, listener);
-            }*/
+            }
 
             listener.onLocationChanged(location);
 
@@ -191,8 +191,10 @@ public class AddActivity extends AppCompatActivity{
                 longi = Double.parseDouble(df.format(longi));
                 String consumeLocation = String.valueOf(latti) + "," + String.valueOf(longi);
                 editLocation.setText(consumeLocation);
+                showGPS.setText("已存取現在位置");
             } else {
-                editLocation.setText("GPS尚未開啟");
+                editLocation.setText("無GPS位置資訊");
+                showGPS.setText("未開啟GPS功能");
             }
         }
     }
@@ -214,7 +216,4 @@ public class AddActivity extends AppCompatActivity{
        // locationManager.setTestProviderEnabled(provider, false);
         super.onDestroy();
     }
-
-
-
 }
