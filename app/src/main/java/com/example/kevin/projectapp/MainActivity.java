@@ -1,6 +1,8 @@
 package com.example.kevin.projectapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,9 +17,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (isOpenGps()){
+        }else {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
 
-        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivity(intent);// Open your GPS Located
 
         button1 =(ImageButton)findViewById(R.id.imageButton1);
         ImageButton nextPageBtn1=(ImageButton)findViewById(R.id.imageButton1);
@@ -59,5 +64,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private boolean isOpenGps() {
+        LocationManager locationManager
+                = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        // 通過GPS衛星定位，定位級別可以精確到街（通過24顆衛星定位，在室外和空曠的地方定位準確、速度快）
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        // 通過WLAN或移動網路(3G/2G)確定的位置（也稱作AGPS，輔助GPS定位。主要用於在室內或遮蓋物（建築群或茂密的深林等）密集的地方定位）
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (gps || network) {
+            return true;
+        }
+        return false;
     }
 }

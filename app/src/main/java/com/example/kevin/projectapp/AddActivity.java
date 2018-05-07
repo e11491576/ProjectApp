@@ -186,8 +186,10 @@ public class AddActivity extends AppCompatActivity{
 
             Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             locationManager.requestLocationUpdates("gps", 1000, 1, listener);
-            if(location==null) {
+            int count = 0;
+            while(location==null && count<10000) {
                 locationManager.requestLocationUpdates("gps", 60, 1, listener);
+                count++;
             }
 
             listener.onLocationChanged(location);
