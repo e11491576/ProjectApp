@@ -1,6 +1,7 @@
 package com.example.kevin.projectapp;
 
 import android.content.Intent;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);// Open your GPS Located
 
         button1 =(ImageButton)findViewById(R.id.imageButton1);
         ImageButton nextPageBtn1=(ImageButton)findViewById(R.id.imageButton1);
