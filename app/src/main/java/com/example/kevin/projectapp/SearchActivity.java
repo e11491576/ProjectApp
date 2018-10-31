@@ -47,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
                         {
                             Toast.makeText(SearchActivity.this, "資料刪除成功", Toast.LENGTH_LONG).show();
                             Intent intent =new Intent();
-                            intent.setClass(SearchActivity.this,MainActivity.class);
+                            intent.setClass(SearchActivity.this,SearchActivity.class);
                             startActivity(intent);
                         }
                         else
