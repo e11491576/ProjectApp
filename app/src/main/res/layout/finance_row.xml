@@ -20,8 +20,8 @@
             android:layout_marginTop="12dp"
             android:layout_weight="3"
             android:text="TextView"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/item_id"
             app:layout_constraintTop_toTopOf="@+id/item_id" />
 
@@ -32,8 +32,8 @@
             android:layout_marginTop="16dp"
             android:layout_weight="3"
             android:text="TextView"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/item_account"
             app:layout_constraintTop_toTopOf="@+id/item_account" />
 
@@ -44,8 +44,8 @@
             android:layout_marginTop="16dp"
             android:layout_weight="3"
             android:text="TextView"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/item_term"
             app:layout_constraintTop_toTopOf="@+id/item_term" />
 
@@ -56,8 +56,8 @@
             android:layout_marginTop="16dp"
             android:layout_weight="3"
             android:text="TextView"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/item_time"
             app:layout_constraintTop_toTopOf="@+id/item_time" />
     </LinearLayout>
@@ -67,6 +67,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="3"
+
         android:orientation="vertical">
 
         <TextView
@@ -85,8 +86,10 @@
 
         <ImageButton
             android:id="@+id/delete_data_button"
-            android:layout_width="40dp"
-            android:layout_height="43dp"
+            android:layout_width="46dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="44dp"
             android:layout_weight="3"
             android:adjustViewBounds="false"
             android:onClick="myClickHandler"
