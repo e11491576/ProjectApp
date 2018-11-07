@@ -92,7 +92,7 @@
             android:onClick="myClickHandler"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/btn_dialog" />
+            app:srcCompat="@drawable/delete_icon" />
 
     </android.support.constraint.ConstraintLayout>
 

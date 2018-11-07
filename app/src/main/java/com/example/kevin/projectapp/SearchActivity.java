@@ -49,7 +49,7 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         ConstraintLayout vwParentRow = (ConstraintLayout)v.getParent();
-                        TextView child = (TextView)vwParentRow.getChildAt(0);
+                        TextView child = (TextView)vwParentRow.getChildAt(0);// To get Item ID
                         Integer deletedRows = myDb.deleteData(child.getText().toString());
                         if(deletedRows > 0)
                         {
