@@ -1,6 +1,7 @@
 package com.example.kevin.projectapp;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -30,119 +31,65 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddActivity extends AppCompatActivity{
+public class AddActivity extends AppCompatActivity {
     static final int REQUEST_LOCATION = 1;
-
     LocationManager locationManager;
     LocationListener listener;
     String provider;
-
     DatabaseHelper myDb;
-    EditText editAmount,editTextID;
+    EditText editAmount, editTextID;
     Spinner itemSpinner;
-    Button btnSubmit,btnUpdate;
-    TextView currentTime,editLocation,showGPS;
+    Button btnSubmit, btnUpdate, btnGetPosition;
+    TextView currentTime, editLocation, showGPS;
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日HH:mm:ss");
-    Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
+    Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
     String str = formatter.format(curDate);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
         myDb = new DatabaseHelper(this);
-
         editAmount = (EditText) findViewById(R.id.editText3);
         showGPS = (TextView) findViewById(R.id.textLocation);
-        editTextID=(EditText)findViewById(R.id.edittext);
+        editTextID = (EditText) findViewById(R.id.edittext);
         btnSubmit = (Button) findViewById(R.id.button2);
-        btnUpdate=(Button)findViewById(R.id.btnupdate);
-        currentTime=(TextView)findViewById(R.id.textView);
-        itemSpinner=(Spinner)findViewById(R.id.spinner_item);
-        editLocation=(TextView)findViewById(R.id.invisibleLocation);
+        btnUpdate = (Button) findViewById(R.id.btnupdate);
+        btnGetPosition = (Button) findViewById(R.id.buttonGetPosition);
+        currentTime = (TextView) findViewById(R.id.textView);
+        itemSpinner = (Spinner) findViewById(R.id.spinner_item);
+        editLocation = (TextView) findViewById(R.id.invisibleLocation);
         ArrayAdapter<CharSequence> nAdapter = ArrayAdapter.createFromResource(
                 this, R.array.item_array, android.R.layout.simple_spinner_item);
         itemSpinner.setAdapter(nAdapter);
-
         currentTime.setText(str);//set_curret_time
         AddData();
         UpdateData();
-
-
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        criteria.setAltitudeRequired(false);
-        criteria.setBearingRequired(false);
-        criteria.setCostAllowed(true);
-        criteria.setPowerRequirement(Criteria.POWER_LOW);
-        String serviceName = Context.LOCATION_SERVICE;
-        locationManager = (LocationManager) getSystemService(serviceName);
-//        locationManager.setTestProviderEnabled("gps", true);
-        provider = locationManager.getBestProvider(criteria, true);
-        Log.d("provider", provider);
-        listener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location)
-            {
-                // TODO Auto-generated method stub
-                Log.i("onLocationChanged", "come in");
-                if (location != null)
-                {
-                    Log.w("Location", "Current altitude = "
-                            + location.getAltitude());
-                    Log.w("Location", "Current latitude = "
-                            + location.getLatitude());
-                }
-                locationManager.removeUpdates(this);
-               // locationManager.setTestProviderEnabled(provider, false);
-            }
-            @Override
-            public void onProviderDisabled(String provider)
-            {
-                // TODO Auto-generated method stub
-                Log.i("onProviderDisabled", "come in");
-            }
-            @Override
-            public void onProviderEnabled(String provider)
-            {
-                // TODO Auto-generated method stub
-                Log.i("onProviderEnabled", "come in");
-            }
-            @Override
-            public void onStatusChanged(String provider, int status,
-                                        Bundle extras)
-            {
-                // TODO Auto-generated method stub
-                Log.i("onStatusChanged", "come in");
-            }
-        };
-        getLocation();
+        btnGetPositionClick();
     }
 
     public void AddData() {
         btnSubmit.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                boolean isInserted =  myDb.insertData(currentTime.getText().toString(),
-                            itemSpinner.getSelectedItem().toString(),
-                            editAmount.getText().toString(),
-                            editLocation.getText().toString());
-                        if(isInserted=true) {
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isInserted = myDb.insertData(currentTime.getText().toString(),
+                                itemSpinner.getSelectedItem().toString(),
+                                editAmount.getText().toString(),
+                                editLocation.getText().toString());
+                        if (isInserted = true) {
                             Toast.makeText(AddActivity.this, "帳目輸入成功", Toast.LENGTH_LONG).show();
-                            Intent intent =new Intent();
-                            intent.setClass(AddActivity.this,MainActivity.class);
+                            Intent intent = new Intent();
+                            intent.setClass(AddActivity.this, MainActivity.class);
                             startActivity(intent);
-                        }
-                        else
-                            Toast.makeText(AddActivity.this,"帳目輸入失敗",Toast.LENGTH_LONG).show();
+                        } else
+                            Toast.makeText(AddActivity.this, "帳目輸入失敗", Toast.LENGTH_LONG).show();
 
                     }
                 }
         );
     }
+
     public void UpdateData() {
         btnUpdate.setOnClickListener(
                 new View.OnClickListener() {
@@ -153,14 +100,13 @@ public class AddActivity extends AppCompatActivity{
                                 itemSpinner.getSelectedItem().toString(),
                                 editAmount.getText().toString(),
                                 editLocation.getText().toString()
-);
-                        if(isUpdate == true) {
+                        );
+                        if (isUpdate == true) {
                             Toast.makeText(AddActivity.this, "資料修改成功", Toast.LENGTH_LONG).show();
-                            Intent intent =new Intent();
-                            intent.setClass(AddActivity.this,MainActivity.class);
+                            Intent intent = new Intent();
+                            intent.setClass(AddActivity.this, MainActivity.class);
                             startActivity(intent);
-                        }
-                        else {
+                        } else {
                             Toast.makeText(AddActivity.this, "資料修改失敗 請重新輸入", Toast.LENGTH_LONG).show();
                         }
                     }
@@ -168,47 +114,93 @@ public class AddActivity extends AppCompatActivity{
         );
     }
 
-
     public void getLocation() {
-        /*if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.ACCESS_COARSE_LOCATION },
-                    PERMISSION_ACCESS_COARSE_LOCATION);
-        }*/
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+        criteria.setAltitudeRequired(false);
+        criteria.setBearingRequired(false);
+        criteria.setCostAllowed(true);
+        criteria.setPowerRequirement(Criteria.POWER_LOW);
+        String serviceName = Context.LOCATION_SERVICE;
+        locationManager = (LocationManager) getSystemService(serviceName);
+        provider = locationManager.getBestProvider(criteria, true);
+        Log.d("provider", provider);
+        listener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                // TODO Auto-generated method stub
+                Log.i("onLocationChanged", "come in");
+                if (location != null) {
+                    Log.w("Location", "Current altitude = "
+                            + location.getAltitude());
+                    Log.w("Location", "Current latitude = "
+                            + location.getLatitude());
+                }
+                locationManager.removeUpdates(this);
+                // locationManager.setTestProviderEnabled(provider, false);
+            }
 
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED &&ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+            @Override
+            public void onProviderDisabled(String provider) {
+                // TODO Auto-generated method stub
+                Log.i("onProviderDisabled", "come in");
+            }
 
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+            @Override
+            public void onProviderEnabled(String provider) {
+                // TODO Auto-generated method stub
+                Log.i("onProviderEnabled", "come in");
+            }
 
+            @Override
+            public void onStatusChanged(String provider, int status,
+                                        Bundle extras) {
+                // TODO Auto-generated method stub
+                Log.i("onStatusChanged", "come in");
+            }
+        };
+        //確認是否開啟 GPS & NetWork
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            //確認 ACCESS_FINE_LOCATION 是否授權
+
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                locationManager.requestLocationUpdates(provider, 10000, 1, listener);
+                listener.onLocationChanged(location);
+                if (location != null) {
+                    // 取得經緯度後加入資料中
+                    double latti = location.getLatitude();
+                    double longi = location.getLongitude();
+                    DecimalFormat df = new DecimalFormat("##.0000");
+                    latti = Double.parseDouble(df.format(latti));
+                    longi = Double.parseDouble(df.format(longi));
+                    String consumeLocation = String.valueOf(latti) + "," + String.valueOf(longi);
+                    editLocation.setText(consumeLocation);
+                    showGPS.setText("已存取現在位置");
+                } else {
+                    editLocation.setText("無GPS位置資訊");
+                    showGPS.setText("抓取不到位置");
+                }
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission_group.LOCATION}, 1);
+            }
         } else {
 
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            locationManager.requestLocationUpdates("gps", 1000, 1, listener);
-            int count = 0;
-            while(location==null && count<10000) {
-                locationManager.requestLocationUpdates("gps", 60, 1, listener);
-                count++;
-            }
-
-            listener.onLocationChanged(location);
-
-            if (location != null){
-
-                double latti = location.getLatitude();
-                double longi = location.getLongitude();
-                DecimalFormat df = new DecimalFormat("##.0000");
-                latti = Double.parseDouble(df.format(latti));
-                longi = Double.parseDouble(df.format(longi));
-                String consumeLocation = String.valueOf(latti) + "," + String.valueOf(longi);
-                editLocation.setText(consumeLocation);
-                showGPS.setText("已存取現在位置");
-            } else {
-                editLocation.setText("無GPS位置資訊");
-                showGPS.setText("未開啟GPS功能");
-            }
+            Toast.makeText(this, "請開啟定位和網路服務", Toast.LENGTH_LONG).show();
         }
+    }
+
+    // 點擊按鈕呼叫 getLocation() 取得位置
+    public void btnGetPositionClick() {
+        btnGetPosition.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getLocation();
+                    }
+                }
+        );
     }
 
     @Override
@@ -222,8 +214,8 @@ public class AddActivity extends AppCompatActivity{
                 break;
         }
     }
-    protected void onDestroy()
-    {
+
+    protected void onDestroy() {
         locationManager.removeUpdates(listener);
         //locationManager.setTestProviderEnabled(provider, false);
         super.onDestroy();

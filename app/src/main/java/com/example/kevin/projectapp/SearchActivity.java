@@ -32,10 +32,10 @@ public class SearchActivity extends AppCompatActivity {
         Cursor res = myDb.getAllData();
         list = (ListView) findViewById(R.id.list);
         SimpleCursorAdapter adapter = new SimpleCursorAdapter
-                (this,R.layout.finance_row,
+                (this, R.layout.finance_row,
                         res,
-                        new String[] {"_id","time","term","amount","comsumeLocation"},
-                        new int[] {R.id.item_id, R.id.item_time,R.id.item_term,R.id.item_account,R.id.item_location},
+                        new String[]{"_id", "time", "term", "amount", "comsumeLocation"},
+                        new int[]{R.id.item_id, R.id.item_time, R.id.item_term, R.id.item_account, R.id.item_location},
                         0);
         list.setAdapter(adapter);
 
@@ -48,18 +48,15 @@ public class SearchActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ConstraintLayout vwParentRow = (ConstraintLayout)v.getParent();
-                        TextView child = (TextView)vwParentRow.getChildAt(0);// To get Item ID
+                        ConstraintLayout vwParentRow = (ConstraintLayout) v.getParent();
+                        TextView child = (TextView) vwParentRow.getChildAt(0);// To get Item ID
                         Integer deletedRows = myDb.deleteData(child.getText().toString());
-                        if(deletedRows > 0)
-                        {
+                        if (deletedRows > 0) {
                             Toast.makeText(SearchActivity.this, "資料刪除成功", Toast.LENGTH_LONG).show();
-                            Intent intent =new Intent();
-                            intent.setClass(SearchActivity.this,SearchActivity.class);
+                            Intent intent = new Intent();
+                            intent.setClass(SearchActivity.this, SearchActivity.class);
                             startActivity(intent);
-                        }
-                        else
-                        {
+                        } else {
                             Toast.makeText(SearchActivity.this, "資料刪除失敗，請重新輸入", Toast.LENGTH_LONG).show();
                         }
                     }

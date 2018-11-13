@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,16 +56,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         DatabaseHelper myDb = new DatabaseHelper(this);
-        Cursor cursor =myDb.getAllData();
+        Cursor cursor = myDb.getAllData();
         int rows_num = cursor.getCount();
-        if(rows_num!=0) {
+        if (rows_num != 0) {
             cursor.moveToFirst();
             for (int i = 0; i < rows_num; i++) {
                 //_id=0 time=1 term=2 amount=3 comsumeLocation=4
-                String term=cursor.getString(2);
+                String term = cursor.getString(2);
                 String item = cursor.getString(4);
-                String money=cursor.getString(3);
-                String[] loc=item.split(",");
+                String money = cursor.getString(3);
+                String[] loc = item.split(",");
                 //loc[0]=Latitude loc[1]=Longtitude
                 //Toast.makeText(MapsActivity.this, ""+loc[0]+loc[1], Toast.LENGTH_LONG).show();
                 try {
@@ -99,7 +100,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(sydney1, 12);
                     mark.showInfoWindow();
                     mMap.animateCamera(cameraUpdate);
-                }catch(Exception e){
+                } catch (Exception e) {
 
                 }
                 //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney1);
@@ -108,7 +109,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
-    public void checkDuplicateMark(LatLng nowLocation){
+
+    public void checkDuplicateMark(LatLng nowLocation) {
 
     }
 }

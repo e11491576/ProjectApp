@@ -12,59 +12,61 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageButton button1,button2,button3,button4;
+    private ImageButton button1, button2, button3, button4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (isOpenGps()){
-        }else {
+        if (isOpenGps()) {
+        } else {
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             startActivity(intent);
         }
 
 
-        button1 =(ImageButton)findViewById(R.id.imageButton1);
-        ImageButton nextPageBtn1=(ImageButton)findViewById(R.id.imageButton1);
-        nextPageBtn1.setOnClickListener(new View.OnClickListener(){
+        button1 = (ImageButton) findViewById(R.id.imageButton1);
+        ImageButton nextPageBtn1 = (ImageButton) findViewById(R.id.imageButton1);
+        nextPageBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent intent =new Intent();
-                intent.setClass(MainActivity.this,AddActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, AddActivity.class);
                 startActivity(intent);
             }
         });
-        button2 =(ImageButton)findViewById(R.id.imageButton2);
-        ImageButton nextPageBtn2=(ImageButton)findViewById(R.id.imageButton2);
-        nextPageBtn2.setOnClickListener(new View.OnClickListener(){
+        button2 = (ImageButton) findViewById(R.id.imageButton2);
+        ImageButton nextPageBtn2 = (ImageButton) findViewById(R.id.imageButton2);
+        nextPageBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent intent =new Intent();
-                intent.setClass(MainActivity.this,SearchActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, SearchActivity.class);
                 startActivity(intent);
             }
         });
-        button3 =(ImageButton)findViewById(R.id.imageButton3);
-        ImageButton nextPageBtn3=(ImageButton)findViewById(R.id.imageButton3);
-        nextPageBtn3.setOnClickListener(new View.OnClickListener(){
+        button3 = (ImageButton) findViewById(R.id.imageButton3);
+        ImageButton nextPageBtn3 = (ImageButton) findViewById(R.id.imageButton3);
+        nextPageBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent intent =new Intent();
-                intent.setClass(MainActivity.this,GraphActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, GraphActivity.class);
                 startActivity(intent);
             }
         });
-        button4 =(ImageButton)findViewById(R.id.imageButton4);
-        ImageButton nextPageBtn4=(ImageButton)findViewById(R.id.imageButton4);
-        nextPageBtn4.setOnClickListener(new View.OnClickListener(){
+        button4 = (ImageButton) findViewById(R.id.imageButton4);
+        ImageButton nextPageBtn4 = (ImageButton) findViewById(R.id.imageButton4);
+        nextPageBtn4.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
-                Intent intent =new Intent();
-                intent.setClass(MainActivity.this,MapsActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this, MapsActivity.class);
                 startActivity(intent);
             }
         });
     }
+
     private boolean isOpenGps() {
         LocationManager locationManager
                 = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
