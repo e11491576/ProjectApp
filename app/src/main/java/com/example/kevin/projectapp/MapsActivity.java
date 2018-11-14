@@ -58,19 +58,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setCompassEnabled(true);       // 左上角的指南針，要兩指旋轉才會出現
         mMap.getUiSettings().setMapToolbarEnabled(true);    // 右下角的導覽及開啟 Google Map功能
 
-        newPointOnMap();
-    }
-    public void moveCameraToNowPosition(){
-        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
-            @Override
-            public boolean onMyLocationButtonClick() {
-
-                return true;
-            }
-        });
+        generateNewPointOnMap();
     }
 
-    public void newPointOnMap(){
+    public void generateNewPointOnMap() {
         DatabaseHelper myDb = new DatabaseHelper(this);
         Cursor cursor = myDb.getAllData();
         int rows_num = cursor.getCount();
@@ -110,7 +101,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         case "其它":
                             break;
                     }
-
                     Marker mark = mMap.addMarker(option);
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(sydney1, 12);
                     mark.showInfoWindow();
@@ -118,8 +108,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } catch (Exception e) {
 
                 }
-                //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney1);
-
                 cursor.moveToNext();
             }
         }

@@ -210,10 +210,4 @@ public class AddActivity extends AppCompatActivity {
                 return;
         }
     }
-
-    protected void onDestroy() {
-        locationManager.removeUpdates(listener);
-        //locationManager.setTestProviderEnabled(provider, false);
-        super.onDestroy();
-    }
 }
