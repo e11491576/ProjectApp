@@ -74,6 +74,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor getDataByDate(Date selectedDate) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        //Cursor res = db.query(tableName, null, null, null, null, null, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + dataTime_column + "",null);
+        return res;
+    }
+
     public Integer deleteData(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(tableName, "_id = ?", new String[]{id});

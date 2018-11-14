@@ -7,14 +7,28 @@
     android:background="@drawable/listview_bg"
     tools:context="com.example.kevin.projectapp.SearchActivity">
 
+    <TextView
+        android:id="@+id/datepick"
+        android:layout_width="215dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="4dp"
+        android:text="CurrentDate"
+        android:textAlignment="center"
+        android:textSize="28sp"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
+        android:layout_marginTop="50dp"
         android:divider="@android:color/black"
         android:dividerHeight="10px"
-        android:maxHeight="10dp"
         android:elevation="0dp"
+        android:maxHeight="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
