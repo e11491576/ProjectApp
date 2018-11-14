@@ -52,11 +52,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(25.1504, 121.773);
         //mMap.setMyLocationEnabled(true);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney)); // 自動移到標記點
+        //mMap.setMyLocationEnabled(true); // 右上角的定位功能；這行會出現紅色底線，不過仍可正常編譯執行
         mMap.getUiSettings().setZoomControlsEnabled(true);  // 右下角的放大縮小功能
         mMap.getUiSettings().setCompassEnabled(true);       // 左上角的指南針，要兩指旋轉才會出現
         mMap.getUiSettings().setMapToolbarEnabled(true);    // 右下角的導覽及開啟 Google Map功能
 
+        newPointOnMap();
+    }
+    public void moveCameraToNowPosition(){
+        mMap.setOnMyLocationButtonClickListener(new GoogleMap.OnMyLocationButtonClickListener() {
+            @Override
+            public boolean onMyLocationButtonClick() {
+
+                return true;
+            }
+        });
+    }
+
+    public void newPointOnMap(){
         DatabaseHelper myDb = new DatabaseHelper(this);
         Cursor cursor = myDb.getAllData();
         int rows_num = cursor.getCount();
@@ -69,7 +83,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String money = cursor.getString(3);
                 String[] loc = item.split(",");
                 //loc[0]=Latitude loc[1]=Longtitude
-                //Toast.makeText(MapsActivity.this, ""+loc[0]+loc[1], Toast.LENGTH_LONG).show();
                 try {
                     LatLng sydney1 = new LatLng(Double.parseDouble(loc[0]), Double.parseDouble(loc[1]));
                     //String icon;
@@ -110,9 +123,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 cursor.moveToNext();
             }
         }
-    }
-
-    public void checkDuplicateMark(LatLng nowLocation) {
-
     }
 }
