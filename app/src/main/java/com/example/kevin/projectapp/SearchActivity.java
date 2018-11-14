@@ -43,7 +43,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         //Cursor res = myDb.getAllData();
-        Cursor res = myDb.getDataByDate(curDate);
+        Cursor res = myDb.getDataByDate(date);
         list = (ListView) findViewById(R.id.list);
         datepick = (TextView) findViewById(R.id.datepick);
         datepick.setText(date);
@@ -73,6 +73,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     String myFormat = "yyyy年MM月dd日";
                     SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.TAIWAN);
                     curDate = m_Calendar.getTime();
+                    date = formatter.format(curDate);
                     datepick.setText(sdf.format(m_Calendar.getTime()));
                 }
             };

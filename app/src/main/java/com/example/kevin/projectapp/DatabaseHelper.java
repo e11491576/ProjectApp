@@ -74,10 +74,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public Cursor getDataByDate(Date selectedDate) {
+    public Cursor getDataByDate(String selectedDate) {
         SQLiteDatabase db = this.getReadableDatabase();
         //Cursor res = db.query(tableName, null, null, null, null, null, null);
-        Cursor res = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + dataTime_column + "",null);
+        Cursor res = db.rawQuery("SELECT * FROM " + tableName + " WHERE " + dataTime_column + "  LIKE  '%" + "11" +" %' ",null);
         return res;
     }
 
