@@ -75,6 +75,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     curDate = m_Calendar.getTime();
                     date = formatter.format(curDate);
                     datepick.setText(sdf.format(m_Calendar.getTime()));
+
                 }
             };
             DatePickerDialog dialog =
@@ -84,6 +85,7 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                             m_Calendar.get(Calendar.MONTH),
                             m_Calendar.get(Calendar.DAY_OF_MONTH));
             dialog.show();
+
         }
 
     }
