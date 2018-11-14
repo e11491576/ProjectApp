@@ -53,7 +53,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //mMap.setMyLocationEnabled(true);
         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
+        mMap.getUiSettings().setZoomControlsEnabled(true);  // 右下角的放大縮小功能
+        mMap.getUiSettings().setCompassEnabled(true);       // 左上角的指南針，要兩指旋轉才會出現
+        mMap.getUiSettings().setMapToolbarEnabled(true);    // 右下角的導覽及開啟 Google Map功能
 
         DatabaseHelper myDb = new DatabaseHelper(this);
         Cursor cursor = myDb.getAllData();

@@ -1,19 +1,15 @@
 package com.example.kevin.projectapp;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Address;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,14 +21,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddActivity extends AppCompatActivity {
-    static final int REQUEST_LOCATION = 1;
+    private static final int REQUEST_LOCATION = 1;
     LocationManager locationManager;
     LocationListener listener;
     String provider;
@@ -115,6 +109,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void getLocation() {
+
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_FINE);
         criteria.setAltitudeRequired(false);
@@ -124,7 +119,7 @@ public class AddActivity extends AppCompatActivity {
         String serviceName = Context.LOCATION_SERVICE;
         locationManager = (LocationManager) getSystemService(serviceName);
         provider = locationManager.getBestProvider(criteria, true);
-        Log.d("provider", provider);
+        //Log.d("provider", provider);
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -162,9 +157,7 @@ public class AddActivity extends AppCompatActivity {
         //確認是否開啟 GPS & NetWork
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
             //確認 ACCESS_FINE_LOCATION 是否授權
-
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
                 Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 locationManager.requestLocationUpdates(provider, 10000, 1, listener);
                 listener.onLocationChanged(location);
@@ -183,10 +176,10 @@ public class AddActivity extends AppCompatActivity {
                     showGPS.setText("抓取不到位置");
                 }
             } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission_group.LOCATION}, 1);
+                //請求手機授權位置權限
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
             }
         } else {
-
             Toast.makeText(this, "請開啟定位和網路服務", Toast.LENGTH_LONG).show();
         }
     }
@@ -205,13 +198,16 @@ public class AddActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
+        //確認位置權限是否被開啟
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         switch (requestCode) {
             case REQUEST_LOCATION:
-                getLocation();
-                break;
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "已開啟位置權限", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "開啟位置權限失敗", Toast.LENGTH_LONG).show();
+                }
+                return;
         }
     }
 
