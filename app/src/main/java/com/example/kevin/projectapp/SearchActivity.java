@@ -42,7 +42,6 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        //Cursor res = myDb.getAllData();
         Cursor res = myDb.getDataByDate(date);
         list = (ListView) findViewById(R.id.list);
         datepick = (TextView) findViewById(R.id.datepick);
@@ -75,7 +74,9 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     curDate = m_Calendar.getTime();
                     date = formatter.format(curDate);
                     datepick.setText(sdf.format(m_Calendar.getTime()));
-
+                    //更改內容
+                    Cursor res = myDb.getDataByDate(date);
+                    showContent(res);
                 }
             };
             DatePickerDialog dialog =
@@ -110,6 +111,16 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 }
         );
+    }
+
+    public void showContent(Cursor res){
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter
+                (this, R.layout.finance_row,
+                        res,
+                        new String[]{"_id", "time", "term", "amount", "comsumeLocation"},
+                        new int[]{R.id.item_id, R.id.item_time, R.id.item_term, R.id.item_account, R.id.item_location},
+                        0);
+        list.setAdapter(adapter);
     }
 
 
