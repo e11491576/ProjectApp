@@ -86,13 +86,10 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
                             m_Calendar.get(Calendar.MONTH),
                             m_Calendar.get(Calendar.DAY_OF_MONTH));
             dialog.show();
-
         }
-
     }
 
     public void myClickHandler(View v) {
-
         v.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

@@ -58,7 +58,6 @@ public class AddActivity extends AppCompatActivity {
         itemSpinner.setAdapter(nAdapter);
         currentTime.setText(str);//set_curret_time
         AddData();
-        UpdateData();
         btnGetPositionClick();
     }
 
@@ -83,7 +82,7 @@ public class AddActivity extends AppCompatActivity {
                 }
         );
     }
-
+/*
     public void UpdateData() {
         btnUpdate.setOnClickListener(
                 new View.OnClickListener() {
@@ -107,7 +106,7 @@ public class AddActivity extends AppCompatActivity {
                 }
         );
     }
-
+*/
     public void getLocation() {
 
         Criteria criteria = new Criteria();
@@ -119,7 +118,6 @@ public class AddActivity extends AppCompatActivity {
         String serviceName = Context.LOCATION_SERVICE;
         locationManager = (LocationManager) getSystemService(serviceName);
         provider = locationManager.getBestProvider(criteria, true);
-        //Log.d("provider", provider);
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {

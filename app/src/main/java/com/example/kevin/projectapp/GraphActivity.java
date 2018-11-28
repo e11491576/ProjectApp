@@ -4,19 +4,11 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,26 +27,21 @@ public class GraphActivity extends AppCompatActivity {
         setContentView(R.layout.activity_graph);
         //Log.d(TAG, "onCreate: starting to create chart");
 
-        pieChart = (PieChart) findViewById(R.id.PieChart);
 
-        //pieChart.setDescription("wrong");
+        pieChart = (PieChart) findViewById(R.id.PieChart);
         pieChart.setRotationEnabled(true);
-        //pieChart.setUsePercentValues(true);
-        //pieChart.setHoleColor(Color.BLUE);
-        //pieChart.setCenterTextColor(Color.BLACK);
         pieChart.setHoleRadius(25f);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setCenterText("花錢項目分析");
         pieChart.setCenterTextSize(15);
         pieChart.setEntryLabelTextSize(40f);
 
-        //pieChart.setDrawEntryLabels(true);
-        //More options just check out the documentation!
-
         countItem();
         addDataSet();
     }
 
+
+    // To Draw a PieChart
     private void addDataSet() {
         List<PieEntry> pieEntries = new ArrayList<>();
         for (int i = 0; i < termMoney.length; i++) {
@@ -81,7 +68,7 @@ public class GraphActivity extends AppCompatActivity {
         chart.setData(data);
         chart.invalidate();
     }
-
+    // To count All Items from SQLite
     public void countItem() {
         DatabaseHelper myDb = new DatabaseHelper(this);
         Cursor cursor = myDb.getAllData();
