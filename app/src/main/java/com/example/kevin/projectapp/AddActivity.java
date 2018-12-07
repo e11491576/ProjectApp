@@ -46,9 +46,7 @@ public class AddActivity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
         editAmount = (EditText) findViewById(R.id.editText3);
         showGPS = (TextView) findViewById(R.id.textLocation);
-        editTextID = (EditText) findViewById(R.id.edittext);
         btnSubmit = (Button) findViewById(R.id.button2);
-        btnUpdate = (Button) findViewById(R.id.btnupdate);
         btnGetPosition = (Button) findViewById(R.id.buttonGetPosition);
         currentTime = (TextView) findViewById(R.id.textView);
         itemSpinner = (Spinner) findViewById(R.id.spinner_item);
