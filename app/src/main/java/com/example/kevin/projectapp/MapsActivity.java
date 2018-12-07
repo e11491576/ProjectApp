@@ -19,9 +19,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.ClusterManager;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+    private ClusterManager<MyItem> mClusterManager;
     private GoogleMap mMap;
 
     @Override
@@ -32,6 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
     }
 
 
@@ -57,8 +59,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.getUiSettings().setZoomControlsEnabled(true);  // 右下角的放大縮小功能
         mMap.getUiSettings().setCompassEnabled(true);       // 左上角的指南針，要兩指旋轉才會出現
         mMap.getUiSettings().setMapToolbarEnabled(true);    // 右下角的導覽及開啟 Google Map功能
-
+        setUpClusterMarker();
         generateNewPointOnMap();
+
     }
 
     public void generateNewPointOnMap() {
@@ -111,5 +114,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 cursor.moveToNext();
             }
         }
+    }
+    public void setUpClusterMarker(){
+        mClusterManager = new ClusterManager<MyItem>(this, mMap);
+        mMap.setOnCameraIdleListener(mClusterManager);
+        mMap.setOnMarkerClickListener(mClusterManager);
+        //addClusterItems();
+        mClusterManager.cluster();
+    }
+
+    public void addClusterItems() {
+        // Set some lat/lng coordinates to start with.
+        double lat = 121.80;
+        double lng = 25.10;
+
+        // Add ten cluster items in close proximity, for purposes of this example.
+        for (int i = 0; i < 5; i++) {
+            double offset = i / 30d;
+            lat = lat + offset;
+            lng = lng + offset;
+            MyItem offsetItem = new MyItem(lat, lng);
+            mClusterManager.addItem(offsetItem);
+        }
+
     }
 }
